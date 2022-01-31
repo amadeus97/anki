@@ -18,6 +18,21 @@ class DecksService {
         .add(await _db, deck.toJson());
   }
 
+  Future<bool> deleteById(int id) async {
+    final result = await _store.record(id).delete(await _db);
+    return result != null;
+  }
+
+  Future<bool> updateById(Deck deck) async {
+    if (deck.id != null) {
+      final result =
+          await _store.record(deck.id!).update(await _db, deck.toJson());
+      return result != null;
+    }
+
+    return false;
+  }
+
   Future<List<Deck>> decks() async {
     final recordSnapshots = await _store.find(
       await _db,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
 import 'package:anki_flutter/logic/decks_controller.dart';
+import 'package:anki_flutter/logic/data/deck.dart';
 
 import 'settings_page.dart';
 import 'add_card_page.dart';
+import '../modals/deck_options_dialog.dart';
 
 /// Displays a list of Decks.
 class ListDecksPage extends StatelessWidget with GetItMixin {
@@ -14,6 +16,13 @@ class ListDecksPage extends StatelessWidget with GetItMixin {
   @override
   Widget build(BuildContext context) {
     final decks = watchX((DecksController c) => c.decks);
+
+    void handleDeckLongPress(Deck deck) {
+      showDialog(
+          context: context,
+          builder: (context) => DeckOptionsDialog(deck: deck));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('AnkiFlutter'),
@@ -39,16 +48,15 @@ class ListDecksPage extends StatelessWidget with GetItMixin {
           final item = decks[index];
 
           return ListTile(
-            title: Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: Text(
-                item.name,
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
-                ),
+            contentPadding: const EdgeInsets.only(left: 8),
+            title: Text(
+              item.name,
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w700,
               ),
             ),
+            onLongPress: () => handleDeckLongPress(item),
             onTap: () {
               // ignore: avoid_print
               print("Deck '${item.name}' was clicked");
