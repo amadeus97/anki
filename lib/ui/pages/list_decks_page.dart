@@ -3,7 +3,6 @@ import 'package:get_it_mixin/get_it_mixin.dart';
 import 'package:anki_flutter/logic/decks_controller.dart';
 import 'package:anki_flutter/logic/data/deck.dart';
 
-import 'settings_page.dart';
 import 'add_card_page.dart';
 import '../modals/deck_options_dialog.dart';
 
@@ -26,14 +25,6 @@ class ListDecksPage extends StatelessWidget with GetItMixin {
     return Scaffold(
       appBar: AppBar(
         title: const Text('AnkiFlutter'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.restorablePushNamed(context, SettingsPage.routeName);
-            },
-          ),
-        ],
       ),
       body: ListView.separated(
         // Providing a restorationId allows the ListView to restore the
@@ -48,7 +39,7 @@ class ListDecksPage extends StatelessWidget with GetItMixin {
           final item = decks[index];
 
           return ListTile(
-            contentPadding: const EdgeInsets.only(left: 8),
+            contentPadding: const EdgeInsets.fromLTRB(24, 0, 16, 0),
             title: Text(
               item.name,
               style: const TextStyle(

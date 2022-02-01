@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:get_it_mixin/get_it_mixin.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'pages/add_card_page.dart';
 import 'pages/list_decks_page.dart';
-import 'pages/settings_page.dart';
-import '../../logic/settings_controller.dart';
 
 /// The Widget that configures your application.
-class MyApp extends StatelessWidget with GetItMixin {
-  MyApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final themeMode = watchOnly((SettingsController s) => s.themeMode);
     return MaterialApp(
       // Providing a restorationScopeId allows the Navigator built by the
       // MaterialApp to restore the navigation stack when a user leaves and
@@ -48,7 +44,6 @@ class MyApp extends StatelessWidget with GetItMixin {
       // SettingsController to display the correct theme.
       theme: ThemeData(),
       darkTheme: ThemeData.dark(),
-      themeMode: themeMode,
 
       // Define a function to handle named routes in order to support
       // Flutter web url navigation and deep linking.
@@ -57,8 +52,6 @@ class MyApp extends StatelessWidget with GetItMixin {
           settings: routeSettings,
           builder: (BuildContext context) {
             switch (routeSettings.name) {
-              case SettingsPage.routeName:
-                return SettingsPage();
               case AddCardPage.routeName:
                 return const AddCardPage();
               case ListDecksPage.routeName:
