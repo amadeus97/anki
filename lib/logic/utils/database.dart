@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
-import 'package:sembast/sembast_io.dart';
+import 'package:sembast_web/sembast_web.dart';
+import 'package:sembast_sqflite/sembast_sqflite.dart';
+import 'package:sqflite/sqflite.dart' show databaseFactory;
 
 class AppDatabase {
   static final AppDatabase _singleton = AppDatabase._();
@@ -29,12 +32,16 @@ class AppDatabase {
   }
 
   Future _openDatabase() async {
-    // Get a platform-specific directory where persistent app data can be stored
-    final appDocumentDir = await getApplicationDocumentsDirectory();
-    // Path with the form: /platform-specific-directory/demo.db
-    final dbPath = join(appDocumentDir.path, 'app.db');
+    final dbFactory = kIsWeb
+        ? databaseFactoryWeb
+        : getDatabaseFactorySqflite(databaseFactory);
 
-    final database = await databaseFactoryIo.openDatabase(dbPath);
+    var dbPath = 'app.db';
+    if (!kIsWeb) {
+      final appDocumentDir = await getApplicationDocumentsDirectory();
+      dbPath = join(appDocumentDir.path, dbPath);
+    }
+    final database = await dbFactory.openDatabase(dbPath);
     // Any code awaiting the Completer's future will now start executing
     _dbOpenCompleter!.complete(database);
   }
