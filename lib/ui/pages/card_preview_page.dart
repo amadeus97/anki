@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart' hide Card;
-import 'package:flutter_html/flutter_html.dart';
 import 'package:anki_flutter/logic/data/card.dart';
 
 import '../widgets/full_width_button.dart';
@@ -24,6 +23,17 @@ class _CardPreviewPageState extends State<CardPreviewPage> {
   @override
   Widget build(BuildContext context) {
     final buttonLabel = showAnswer ? 'HIDE ANSWER' : 'SHOW ANSWER';
+    final card = widget.card;
+
+    Widget buildField(String value) {
+      return Text(
+        value,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 20,
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(title: Text(widget.name)),
@@ -31,12 +41,19 @@ class _CardPreviewPageState extends State<CardPreviewPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-              child: SingleChildScrollView(
-            child: Html(
-              data: showAnswer ? widget.card.backSide : widget.card.frontSide,
-              style: Style.fromCss(widget.card.style, null),
+            child: ListView(
+              padding: const EdgeInsets.all(8),
+              children: [
+                buildField(card.question),
+                const Divider(
+                  thickness: 1.0,
+                  color: Colors.grey,
+                  height: 24.0,
+                ),
+                if (showAnswer) buildField(card.answer),
+              ],
             ),
-          )),
+          ),
           FullWidthButton(
             label: buttonLabel,
             onPressed: _handleFlipPressed,
