@@ -7,31 +7,30 @@ part of 'card.dart';
 // **************************************************************************
 
 _$_Card _$$_CardFromJson(Map<String, dynamic> json) => _$_Card(
-      id: json['id'] as int?,
       question: json['question'] as String,
       answer: json['answer'] as String,
       $type: json['runtimeType'] as String?,
     );
 
 Map<String, dynamic> _$$_CardToJson(_$_Card instance) => <String, dynamic>{
-      'id': instance.id,
       'question': instance.question,
       'answer': instance.answer,
       'runtimeType': instance.$type,
     };
 
-_$Learning _$$LearningFromJson(Map<String, dynamic> json) => _$Learning(
-      id: json['id'] as int?,
+_$LearningCard _$$LearningCardFromJson(Map<String, dynamic> json) =>
+    _$LearningCard(
+      deckId: json['deckId'] as int,
       question: json['question'] as String,
       answer: json['answer'] as String,
-      consecutiveCorrect: json['consecutiveCorrect'] as int? ?? 0,
+      consecutiveCorrect: json['consecutiveCorrect'] as int,
       lastReviewed: json['lastReviewed'] as int?,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$LearningToJson(_$Learning instance) =>
+Map<String, dynamic> _$$LearningCardToJson(_$LearningCard instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'deckId': instance.deckId,
       'question': instance.question,
       'answer': instance.answer,
       'consecutiveCorrect': instance.consecutiveCorrect,
@@ -39,8 +38,9 @@ Map<String, dynamic> _$$LearningToJson(_$Learning instance) =>
       'runtimeType': instance.$type,
     };
 
-_$Reviewing _$$ReviewingFromJson(Map<String, dynamic> json) => _$Reviewing(
-      id: json['id'] as int?,
+_$ReviewingCard _$$ReviewingCardFromJson(Map<String, dynamic> json) =>
+    _$ReviewingCard(
+      deckId: json['deckId'] as int,
       question: json['question'] as String,
       answer: json['answer'] as String,
       factor: (json['factor'] as num).toDouble(),
@@ -50,9 +50,9 @@ _$Reviewing _$$ReviewingFromJson(Map<String, dynamic> json) => _$Reviewing(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$ReviewingToJson(_$Reviewing instance) =>
+Map<String, dynamic> _$$ReviewingCardToJson(_$ReviewingCard instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'deckId': instance.deckId,
       'question': instance.question,
       'answer': instance.answer,
       'factor': instance.factor,
@@ -62,8 +62,8 @@ Map<String, dynamic> _$$ReviewingToJson(_$Reviewing instance) =>
       'runtimeType': instance.$type,
     };
 
-_$Lapsed _$$LapsedFromJson(Map<String, dynamic> json) => _$Lapsed(
-      id: json['id'] as int?,
+_$LapsedCard _$$LapsedCardFromJson(Map<String, dynamic> json) => _$LapsedCard(
+      deckId: json['deckId'] as int,
       question: json['question'] as String,
       answer: json['answer'] as String,
       consecutiveCorrect: json['consecutiveCorrect'] as int,
@@ -74,8 +74,9 @@ _$Lapsed _$$LapsedFromJson(Map<String, dynamic> json) => _$Lapsed(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$LapsedToJson(_$Lapsed instance) => <String, dynamic>{
-      'id': instance.id,
+Map<String, dynamic> _$$LapsedCardToJson(_$LapsedCard instance) =>
+    <String, dynamic>{
+      'deckId': instance.deckId,
       'question': instance.question,
       'answer': instance.answer,
       'consecutiveCorrect': instance.consecutiveCorrect,

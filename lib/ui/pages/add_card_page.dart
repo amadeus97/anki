@@ -35,7 +35,7 @@ class _AddCardPageState extends State<AddCardPage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: _handleAddNewCard,
             icon: const Icon(Icons.check),
           ),
           IconButton(
@@ -92,6 +92,19 @@ class _AddCardPageState extends State<AddCardPage> {
     if (result != null) {
       setState(() => selectedDeck = result);
     }
+  }
+
+  _handleAddNewCard() async {
+    _removeInputFocus();
+    await cardsController.addCard(
+      card: Card(
+        question: questionController.text,
+        answer: answerController.text,
+      ),
+      deckId: selectedDeck.id!,
+    );
+    questionController.clear();
+    answerController.clear();
   }
 
   _handlePreviewButtonnPressed() {

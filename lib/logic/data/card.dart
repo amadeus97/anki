@@ -6,36 +6,39 @@ part 'card.g.dart';
 @freezed
 class Card with _$Card {
   factory Card({
-    int? id,
+    @JsonKey(ignore: true) int? id,
     required String question,
     required String answer,
   }) = _Card;
 
   factory Card.learning(
-      {int? id,
+      {@JsonKey(ignore: true) int? id,
+      required int deckId,
       required String question,
       required String answer,
-      @Default(0) int consecutiveCorrect,
-      int? lastReviewed}) = Learning;
+      required int consecutiveCorrect,
+      int? lastReviewed}) = LearningCard;
 
   factory Card.reviewing(
-      {int? id,
+      {@JsonKey(ignore: true) int? id,
+      required int deckId,
       required String question,
       required String answer,
       required double factor,
       required int lapses,
       required int interval,
-      required int lastReviewed}) = Reviewing;
+      required int lastReviewed}) = ReviewingCard;
 
   factory Card.lapsed(
-      {int? id,
+      {@JsonKey(ignore: true) int? id,
+      required int deckId,
       required String question,
       required String answer,
       required int consecutiveCorrect,
       required double factor,
       required int lapses,
       required int interval,
-      required int lastReviewed}) = Lapsed;
+      required int lastReviewed}) = LapsedCard;
 
   factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
 }
